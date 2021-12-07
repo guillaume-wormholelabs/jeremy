@@ -31,6 +31,9 @@ public class Ball : MonoBehaviour
     public AudioSource audio;
 
     public int numberofhits;
+    public GameObject gameOver;
+    public GameObject reloadDestroy;
+    public GameObject reloadDestroy2;
 
     private void Start()
     {
@@ -92,9 +95,14 @@ public class Ball : MonoBehaviour
         }
         else
         {
+            gameOver.SetActive(true);
             //gm.GetComponent<GameManager>().EnemiesAlive = 0;
-            StartCoroutine(Reload());
         }
+    }
+
+    public void ReloadLevel()
+    {
+        StartCoroutine(Reload());
     }
 
     private IEnumerator Reload()
@@ -102,7 +110,8 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(2f);
         audio.PlayOneShot(failed_level);
         Debug.Log("Reloading");
-
+        Destroy(reloadDestroy);
+        Destroy(reloadDestroy2);
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
