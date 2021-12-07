@@ -105,6 +105,13 @@ public class Ball : MonoBehaviour
         StartCoroutine(Reload());
     }
 
+    public void RestartGame()
+    {
+        Destroy(reloadDestroy);
+        Destroy(reloadDestroy2);
+        SceneManager.LoadScene(0);
+    }
+
     private IEnumerator Reload()
     {
         yield return new WaitForSeconds(2f);
