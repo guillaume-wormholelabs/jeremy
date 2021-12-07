@@ -5,19 +5,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
-public class Ball : MonoBehaviour {
-
-	public Rigidbody2D rb;
-	public Rigidbody2D hook;
+public class Ball : MonoBehaviour
+{
+    public Rigidbody2D rb;
+    public Rigidbody2D hook;
 
     //public float number_ball = 1f;
 
-	public float releaseTime = .15f;
-	public float maxDragDistance = 2f;
+    public float releaseTime = .15f;
+    public float maxDragDistance = 2f;
 
-	public GameObject nextBall;
+    public GameObject nextBall;
 
-	private bool isPressed = false;
+    private bool isPressed = false;
 
     public bool released = false;
 
@@ -37,34 +37,34 @@ public class Ball : MonoBehaviour {
         audio = GetComponent<AudioSource>();
     }
 
-    void Update ()
-	{
-		if (isPressed)
-		{
-			Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    private void Update()
+    {
+        if (isPressed)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-			if (Vector3.Distance(mousePos, hook.position) > maxDragDistance)
-				rb.position = hook.position + (mousePos - hook.position).normalized * maxDragDistance;
-			else
-				rb.position = mousePos;
-		}
-	}
+            if (Vector3.Distance(mousePos, hook.position) > maxDragDistance)
+                rb.position = hook.position + (mousePos - hook.position).normalized * maxDragDistance;
+            else
+                rb.position = mousePos;
+        }
+    }
 
-	void OnMouseDown ()
-	{
-		isPressed = true;
-		rb.isKinematic = true;
-	}
+    private void OnMouseDown()
+    {
+        isPressed = true;
+        rb.isKinematic = true;
+    }
 
-	void OnMouseUp ()
-	{
-		isPressed = false;
-		rb.isKinematic = false;
+    private void OnMouseUp()
+    {
+        isPressed = false;
+        rb.isKinematic = false;
 
-		StartCoroutine(Release());
-	}
+        StartCoroutine(Release());
+    }
 
-    void OnCollisionEnter2D(Collision2D colInfo)
+    private void OnCollisionEnter2D(Collision2D colInfo)
     {
         if (colInfo.relativeVelocity.magnitude > 5)
         {
@@ -73,33 +73,32 @@ public class Ball : MonoBehaviour {
         FirstHit = true;
     }
 
-    IEnumerator Release ()
-	{
-		yield return new WaitForSeconds(releaseTime);
+    private IEnumerator Release()
+    {
+        yield return new WaitForSeconds(releaseTime);
 
         released = true;
 
         audio.PlayOneShot(bird_launch);
         GetComponent<SpringJoint2D>().enabled = false;
-		this.enabled = false;
+        this.enabled = false;
 
-		yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);
 
-		if (nextBall != null)
-		{
-			nextBall.SetActive(true);
+        if (nextBall != null)
+        {
+            nextBall.SetActive(true);
             //released = false;
             //number_ball++;
-        } else
-		{
-            //gm.GetComponent<GameMaster>().EnemiesAlive = 0;
-            StartCoroutine(Reload());
-
         }
-	    
-	}
+        else
+        {
+            //gm.GetComponent<GameManager>().EnemiesAlive = 0;
+            StartCoroutine(Reload());
+        }
+    }
 
-    IEnumerator Reload()
+    private IEnumerator Reload()
     {
         yield return new WaitForSeconds(2f);
         audio.PlayOneShot(failed_level);
