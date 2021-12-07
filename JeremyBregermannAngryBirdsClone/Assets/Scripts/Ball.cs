@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
 
     public bool released = false;
 
-    public GameManager gm;
+    public GameObject gm;
 
     public bool FirstHit = false;
 
@@ -38,6 +38,7 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         audio = GetComponent<AudioSource>();
+        gm = GameObject.FindWithTag("GameManager");
     }
 
     private void Update()
@@ -63,7 +64,7 @@ public class Ball : MonoBehaviour
     {
         isPressed = false;
         rb.isKinematic = false;
-        gm.lives--;
+        gm.GetComponent<GameManager>().lives--;
         StartCoroutine(Release());
     }
 

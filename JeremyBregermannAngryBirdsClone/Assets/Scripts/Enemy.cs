@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     {
         Invoke("PlayPigNoises", (UnityEngine.Random.Range(5f, 17f)));
         audio = GetComponent<AudioSource>();
+        gm = GameObject.FindWithTag("GameManager");
         gm.GetComponent<GameManager>().EnemiesAlive++;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
