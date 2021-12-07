@@ -110,6 +110,7 @@ public class Ball : MonoBehaviour
     {
         Destroy(reloadDestroy);
         Destroy(reloadDestroy2);
+        gameOver.SetActive(false);
         SceneManager.LoadScene(0);
     }
 
@@ -120,6 +121,7 @@ public class Ball : MonoBehaviour
         Debug.Log("Reloading");
         Destroy(reloadDestroy);
         Destroy(reloadDestroy2);
+        gameOver.SetActive(false);
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
