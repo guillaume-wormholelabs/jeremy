@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
 
     public bool released = false;
 
-    public GameObject gm;
+    public GameManager gm;
 
     public bool FirstHit = false;
 
@@ -60,7 +60,7 @@ public class Ball : MonoBehaviour
     {
         isPressed = false;
         rb.isKinematic = false;
-
+        gm.lives--;
         StartCoroutine(Release());
     }
 
@@ -78,7 +78,6 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(releaseTime);
 
         released = true;
-
         audio.PlayOneShot(bird_launch);
         GetComponent<SpringJoint2D>().enabled = false;
         this.enabled = false;

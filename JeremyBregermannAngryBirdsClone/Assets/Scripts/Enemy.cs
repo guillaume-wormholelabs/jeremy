@@ -72,6 +72,8 @@ public class Enemy : MonoBehaviour
     public void LoadNextLevel()
     {
         Debug.Log("GAME SET!");
+        gm.GetComponent<GameManager>().currentLevel++;
+        gm.GetComponent<GameManager>().lives = 3;
         SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex) + 1);
     }
 

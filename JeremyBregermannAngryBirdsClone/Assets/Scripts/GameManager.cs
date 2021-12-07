@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public int EnemiesAlive = 0;
+    public int lives;
+    public int currentLevel;
 
     public bool played = false;
 
@@ -19,6 +21,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         audio = GetComponent<AudioSource>();
+        lives = 3;
+        currentLevel = 1;
     }
 
     // Update is called once per frame
